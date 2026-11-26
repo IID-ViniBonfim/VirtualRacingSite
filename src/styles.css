@@ -1,0 +1,100 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-display: "Chakra Petch", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Exo 2", ui-sans-serif, system-ui, sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-deep: var(--primary-deep);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-graphite: var(--graphite);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+/* Paleta extraída da logo: verde #2EFF47 e grafite #333F49 */
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0.17 0.012 240);
+  --foreground: oklch(0.96 0.005 240);
+  --card: oklch(0.22 0.016 240);
+  --card-foreground: oklch(0.96 0.005 240);
+  --popover: oklch(0.22 0.016 240);
+  --popover-foreground: oklch(0.96 0.005 240);
+  --primary: oklch(0.87 0.26 145);
+  --primary-foreground: oklch(0.16 0.02 240);
+  --primary-deep: oklch(0.62 0.18 145);
+  --graphite: oklch(0.36 0.025 240);
+  --secondary: oklch(0.36 0.025 240);
+  --secondary-foreground: oklch(0.96 0.005 240);
+  --muted: oklch(0.26 0.016 240);
+  --muted-foreground: oklch(0.72 0.015 240);
+  --accent: oklch(0.3 0.05 150);
+  --accent-foreground: oklch(0.92 0.15 145);
+  --destructive: oklch(0.63 0.22 27);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.32 0.02 240);
+  --input: oklch(0.32 0.02 240);
+  --ring: oklch(0.87 0.26 145);
+  --glow: 0 0 24px -4px color-mix(in oklab, var(--primary) 55%, transparent);
+  --glow-strong: 0 0 40px -6px color-mix(in oklab, var(--primary) 75%, transparent);
+  --gradient-fade: linear-gradient(180deg, transparent, var(--background));
+  --gradient-side: linear-gradient(90deg, var(--background) 10%, color-mix(in oklab, var(--background) 60%, transparent) 55%, transparent);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0.01em; }
+}
+
+@utility glow { box-shadow: var(--glow); }
+@utility glow-strong { box-shadow: var(--glow-strong); }
+@utility text-glow { text-shadow: 0 0 18px color-mix(in oklab, var(--primary) 60%, transparent); }
+@utility bg-fade { background-image: var(--gradient-fade); }
+@utility bg-side { background-image: var(--gradient-side); }
+@utility grid-lines {
+  background-image:
+    linear-gradient(color-mix(in oklab, var(--primary) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--primary) 7%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+@utility clip-angle { clip-path: polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%); }
+
+@keyframes scan { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+@utility animate-scan { animation: scan 3.5s linear infinite; }
+@keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@utility animate-rise { animation: rise 0.7s ease-out both; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
